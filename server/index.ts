@@ -10,7 +10,7 @@ const port: number = 3001;
 app.use(cors());
 app.use(express.json());
 
-const buildPath = path.join(__dirname, "../build");
+const buildPath = path.join(__dirname, "../../build");
 app.use(express.static(buildPath));
 
 app.use("/api/data", dataRoutes);

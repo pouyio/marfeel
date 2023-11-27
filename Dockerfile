@@ -14,6 +14,9 @@ RUN mkdir /app/server
 # Install app dependencies
 RUN npm install
 
+# Set the environment variable for the build process
+ENV REACT_APP_API_URL=https://marfeel.fly.dev/api
+
 # Copy the frontend source code into the container
 COPY .npmrc .npmrc
 COPY src src

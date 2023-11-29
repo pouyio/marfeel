@@ -9,7 +9,14 @@ import MuiAppBar from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Period, periods } from "../../types";
+import { Period } from "../../types";
+
+export const periods = [
+  "today",
+  "yesterday",
+  "lastSevenDays",
+  "thisMonth",
+] as const;
 
 const StyledAppBar = styled(MuiAppBar)`
   padding: 12px 30px;

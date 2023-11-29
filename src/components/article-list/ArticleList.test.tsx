@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { useInView } from "react-intersection-observer";
+import { BrowserRouter } from "react-router-dom";
 import { ArticleList } from "./ArticleList";
 
 const ARTICLES_MOCK = [
@@ -109,10 +110,14 @@ describe("ArticleList component works properly", () => {
       inView: inViewMock,
     });
 
-    render(<ArticleList articles={ARTICLES_MOCK} onLoadMore={() => {}} />);
+    render(
+      <BrowserRouter>
+        <ArticleList articles={ARTICLES_MOCK} onLoadMore={() => {}} />
+      </BrowserRouter>
+    );
 
     ARTICLES_MOCK.forEach((article) => {
-      const expectedHref = `/${article.id}`;
+      const expectedHref = `/${article.id}?`;
       const linkElement = screen.getByTestId(`article-link-${article.id}`);
       expect(linkElement).toBeInTheDocument();
       expect(linkElement).toHaveAttribute("href", expectedHref);

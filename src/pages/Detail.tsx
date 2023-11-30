@@ -1,32 +1,19 @@
 import { Box, CircularProgress, Paper } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { getArticleById } from "../api";
 import { Chart } from "../components";
 import { ArticleDetail } from "../components/article-detail";
-import { Article, Traffic } from "../types";
+import { useGetArticle } from "../hooks/useGetArticle";
 import { transformChartData } from "../utils";
 
 export const Detail: React.FC = () => {
   const params = useParams<{ id: string }>();
 
-  const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
-  const [article, setArticle] = useState<Article | null>(null);
-  const [traffic, setTraffic] = useState<Traffic>({});
 
   const period = searchParams.get("period");
 
-  useEffect(() => {
-    setLoading(true);
-    getArticleById(params.id!, period)
-      .then(({ article, traffic }) => {
-        setArticle(article);
-        setTraffic(traffic);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, [period]);
+  const { loading, article, traffic } = useGetArticle(params.id!, period);
 
   const { values, labels } = transformChartData(traffic);
 

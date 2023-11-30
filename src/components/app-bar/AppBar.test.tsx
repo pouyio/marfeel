@@ -1,7 +1,6 @@
 import { screen, render, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import { periods } from "../../types";
-import { AppBar } from "./AppBar";
+import { AppBar, periods } from "./AppBar";
 
 describe("AppBar component works properly", () => {
   it("shows options when clicked", () => {

@@ -1,14 +1,16 @@
 import { Link } from "@mui/material";
 import React from "react";
 import { useInView } from "react-intersection-observer";
+import { useSearchParams } from "react-router-dom";
 import { Article as ArticleComponent } from "..";
 
-import { Article } from "../../types";
+import { ArticleWithTotal } from "../../types";
 
 export const ArticleList: React.FC<{
-  articles: Article[];
+  articles: ArticleWithTotal[];
   onLoadMore: () => void;
 }> = ({ articles, onLoadMore }) => {
+  let [searchParams] = useSearchParams();
   const { ref } = useInView({
     fallbackInView: true,
     onChange: (inView: boolean) => {
@@ -26,7 +28,7 @@ export const ArticleList: React.FC<{
           underline="none"
           ref={idx === articles.length - 1 ? ref : null}
           key={article.id}
-          href={`/${article.id}`}
+          href={`/${article.id}?${searchParams.toString()}`}
         >
           <ArticleComponent
             author={article.author}
